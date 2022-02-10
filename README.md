@@ -2,7 +2,7 @@
 
 Group 4! Let's Goooo
 
-###Code of Conduct
+###Code of Conduc
 
 
 ###Product Backlog
