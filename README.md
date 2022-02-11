@@ -20,7 +20,7 @@ Group 4! Let's Goooo
 | As a user, I want to be able to specify an area and be given a numerical value of its population                                                                                                                                 | Implement code to output report specified by user inputs | 4 | 3 |
 | As a user, I want to know the number of people who speak each of the five required languages and what that number is as a percentage of the world population                                                                     | Implement code to output report specified by user inputs | 5 | 3 |
 | As a user, I want to receive a stable application                                                                                                                                                                                | Implement unit tests | 6 | 1 |
-| (As Above)                                                                                                                                                                                                                       | Implement integration tests | 6 | 1 |
+| (As Above)                                                                                                                                                                                                                      | Implement integration tests | 6 | 1 |
 
 
 
