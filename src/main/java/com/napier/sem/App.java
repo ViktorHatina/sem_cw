@@ -8,6 +8,10 @@ import org.bson.Document;
 
 //class for our application running mongo-dbserver
 public class App {
+    /**
+     Reference and project explanation. These will be displayed in java doc. (or hover over main)
+     * @param args
+     */
     public static void main(String[] args) {
         MongoClient mongoClient = new MongoClient("mongo-dbserver");
         // Get a database - will create when we use it
