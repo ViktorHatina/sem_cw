@@ -1,10 +1,12 @@
 package com.napier.sem;
 
+//importing libraries
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
+//class for our application running mongo-dbserver
 public class App {
     public static void main(String[] args) {
         MongoClient mongoClient = new MongoClient("mongo-dbserver");
