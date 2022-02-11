@@ -1,4 +1,4 @@
-#Coursework Software Engineering Methods
+# Coursework Software Engineering Methods
 
 Group 4! Let's Goooo
 
@@ -8,7 +8,7 @@ Group 4! Let's Goooo
 * Release [![Releases](https://img.shields.io/github/release/ViktorHatina/sem_cw/all.svg?style=flat-square)](https://github.com/ViktorHatina/sem_cw/releases)
 
 
-#Product Backlog
+# Product Backlog
 | User Story                                                                                                                                                                                                                       | Associated Tasks | Priority | Work Estimate |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|---|
 | As a user, I want to be working with the data I have provided                                                                                                                                                                    | Get SQL database into a usable format | 1 | 2 |
