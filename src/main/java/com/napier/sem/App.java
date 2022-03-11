@@ -93,7 +93,9 @@ public class App
             }
         }
     }
-
+    /**
+     * Get the World's Population
+     */
     public void getWorldPopulation()
     {
         try
