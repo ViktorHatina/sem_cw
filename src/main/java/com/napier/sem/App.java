@@ -104,7 +104,7 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT SUM (country.population)"
+                    "SELECT SUM(country.population)"
                             + "FROM country ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
