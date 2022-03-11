@@ -59,7 +59,7 @@ public class App
                     - The database will require unique URL (the one we using now is invalid
                         - form: jdbc:subprotocol:subname
                 */
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
