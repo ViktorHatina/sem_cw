@@ -140,7 +140,6 @@ public class App
                             + "ORDER BY SUM((country.Population/100)*countrylanguage.Percentage) DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-
             while (rset.next())
             {
                 String n = rset.getString(1);
