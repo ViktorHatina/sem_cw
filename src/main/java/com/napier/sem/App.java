@@ -141,8 +141,6 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            System.out.println(wpop);
-
             while (rset.next())
             {
                 String n = rset.getString(1);
