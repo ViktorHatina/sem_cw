@@ -125,7 +125,7 @@ public class App
     }
 
     /**
-     * Get the World's Population
+     * Output Reports
      */
     public static void printReport(ArrayList<String> s)
     {
