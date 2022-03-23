@@ -14,7 +14,7 @@ public class App
         // Connect to database
         a.connect();
 
-        a.getLanguageReports();
+        a.printReport(getLanguageReports());
 
         // Disconnect from database
         a.disconnect();
@@ -23,12 +23,12 @@ public class App
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public static void connect()
     {
         try
         {
@@ -79,7 +79,7 @@ public class App
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect()
     {
         if (con != null)
         {
@@ -97,7 +97,7 @@ public class App
     /**
      * Get the World's Population
      */
-    public long getWorldPopulation()
+    public static long getWorldPopulation()
     {
         try
         {
@@ -124,7 +124,23 @@ public class App
         }
     }
 
-    public void getLanguageReports() {
+    /**
+     * Get the World's Population
+     */
+    public static void printReport(ArrayList<String> s)
+    {
+        if (s == null)
+        {
+            System.out.println("No Report to Print");
+        } else {
+             for (int i=0; i< s.size(); i++) {
+                System.out.println(s.get(i));
+             }
+        }
+    }
+
+    public static ArrayList<String> getLanguageReports() {
+        ArrayList<String> output = new ArrayList<String>();
         try
         {
             long wpop = getWorldPopulation();
@@ -140,23 +156,21 @@ public class App
                             + "ORDER BY SUM((country.Population/100)*countrylanguage.Percentage) DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
+
             while (rset.next())
             {
                 String n = rset.getString(1);
                 Long p = rset.getLong(2);
                 Double pc = (Double.valueOf(p)/Double.valueOf(wpop))*100;
-                System.out.println(n + ": " + p + " speakers, " + pc + "% of the population.");
+                output.add(n + ": " + p + " speakers, " + pc + "% of the population.");
             }
+            return output;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
             System.out.println("Failed to get language reports");
-            return;
+            return output;
         }
     }
 }
-
-/**
- * :^)
- */
