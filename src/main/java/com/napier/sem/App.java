@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class App
 {
@@ -13,7 +14,7 @@ public class App
         // Connect to database
         a.connect();
 
-        a.getWorldPopulation();
+        a.getLanguageReports();
 
         // Disconnect from database
         a.disconnect();
@@ -59,7 +60,7 @@ public class App
                     - The database will require unique URL (the one we using now is invalid
                         - form: jdbc:subprotocol:subname
                 */
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -96,7 +97,7 @@ public class App
     /**
      * Get the World's Population
      */
-    public void getWorldPopulation()
+    public long getWorldPopulation()
     {
         try
         {
@@ -104,22 +105,58 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT SUM (country.population)"
-                            + "FROM country ";
+                    "SELECT SUM(country.Population) "
+                            + "FROM country";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             if (rset.next())
             {
-                System.out.println("The population of the world is " + rset);
+                return rset.getLong(1);
             }
             else
-                return;
+                return 0;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
             System.out.println("Failed to get world population");
+            return 0;
+        }
+    }
+
+    public void getLanguageReports() {
+        try
+        {
+            long wpop = getWorldPopulation();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT countrylanguage.Language, SUM((country.Population/100)*countrylanguage.Percentage) "
+                            + "FROM countrylanguage "
+                            + "LEFT JOIN country ON countrylanguage.CountryCode=country.Code "
+                            + "WHERE Language=\"Chinese\" OR Language=\"English\" OR Language=\"Hindi\" OR Language=\"Spanish\" OR Language=\"Arabic\" "
+                            + "GROUP BY countrylanguage.Language "
+                            + "ORDER BY SUM((country.Population/100)*countrylanguage.Percentage) DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            while (rset.next())
+            {
+                String n = rset.getString(1);
+                Long p = rset.getLong(2);
+                Double pc = (Double.valueOf(p)/Double.valueOf(wpop))*100;
+                System.out.println(n + ": " + p + " speakers, " + pc + "% of the population.");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get language reports");
             return;
         }
     }
 }
+
+/**
+ * :^)
+ */
