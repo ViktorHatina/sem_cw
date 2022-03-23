@@ -134,7 +134,9 @@ public class App
             System.out.println("No Report to Print");
         } else {
              for (int i=0; i< s.size(); i++) {
-                System.out.println(s.get(i));
+                 if (s.get(i)!=null) {
+                    System.out.println(s.get(i));
+                 }
              }
         }
     }

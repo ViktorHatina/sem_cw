@@ -23,4 +23,27 @@ public class AppTest
     {
         app.printReport(null);
     }
+
+    @Test
+    void printReportEmpty()
+    {
+        ArrayList<String> s = new ArrayList<String>();
+        app.printReport(null);
+    }
+
+    @Test
+    void printReportTestContainsNull()
+    {
+        ArrayList<String> s = new ArrayList<String>();
+        s.add(null);
+        app.printReport(s);
+    }
+
+    @Test
+    void printReport()
+    {
+        ArrayList<String> s = new ArrayList<String>();
+        s.add("Test Report");
+        app.printReport(s);
+    }
 }
