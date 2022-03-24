@@ -36,3 +36,76 @@ FROM country
 WHERE region = '?'
 ORDER BY population DESC
 LIMIT N
+
+7. All the cities in the world organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+ORDER BY city.population DESC
+
+8. All the cities in a continent organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE country.continent = '?'
+ORDER BY city.population DESC
+
+9. All the cities in a region organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE country.region = '?'
+ORDER BY city.population DESC
+
+10. All the cities in a country organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE country.name = '?'
+ORDER BY city.population DESC
+
+11. All the cities in a district organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE city.district = '?'
+ORDER BY city.population DESC
+
+12. The top N populated cities in the world where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+ORDER BY city.population DESC
+LIMIT N
+
+13. The top N populated cities in a continent where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE country.continent = '?'
+ORDER BY city.population DESC
+LIMIT N
+
+14. The top N populated cities in a region where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE country.region = '?'
+ORDER BY city.population DESC
+LIMIT N
+
+15. The top N populated cities in a country where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE country.name = '?'
+ORDER BY city.population DESC
+LIMIT N
+
+16. The top N populated cities in a district where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM city
+JOIN country ON city.countrycode=country.code
+WHERE city.district = '?'
+ORDER BY city.population DESC
+LIMIT N
