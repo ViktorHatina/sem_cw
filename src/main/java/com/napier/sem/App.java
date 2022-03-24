@@ -51,15 +51,6 @@ public class App
                 Thread.sleep(30000);
 
                 // Connect to database
-                /*
-
-                We will have to find the correct path (means of accessing) the database
-                db/world - attempted path
-                Questions:
-                    - Does our database require a password and user input?
-                    - The database will require unique URL (the one we using now is invalid
-                        - form: jdbc:subprotocol:subname
-                */
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
