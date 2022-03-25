@@ -123,6 +123,9 @@ public class App
         }
     }
 
+    /**
+     * Get Reports on the percentages of worlds population speeking the worlds most used languages
+     */
     public static ArrayList<String> getLanguageReports() {
         ArrayList<String> output = new ArrayList<String>();
         try
