@@ -15,8 +15,12 @@ public class App
         }else{
             a.connect(args[0], Integer.parseInt(args[1]));
         }
+        // Print Lang Reports
+        //a.printReport(getLanguageReports());
 
-        a.printReport(getLanguageReports());
+        //Print countries by population largest to smallest
+        ArrayList<Country> countries = a.getAllCountriesByPopDesc();
+        a.printAllCountries(countries);
 
         // Disconnect from database
         a.disconnect();
@@ -158,6 +162,60 @@ public class App
             System.out.println(e.getMessage());
             System.out.println("Failed to get language reports");
             return output;
+        }
+    }
+
+    /**
+     * Print Countries from functions
+     * @param countries: a list of countries extracted from the database
+     */
+    public void printAllCountries(ArrayList<Country> countries) {
+        if (countries != null && !countries.isEmpty()) {
+            System.out.printf("%-4s %-44s %-13s %-25s %-10s %-5s%n", "Code", "Name", "Continent", "Region", "Population", "CapitalID");
+            for (Country c : countries) {
+                if (c != null) {
+                    System.out.printf("%-4s %-44s %-13s %-25s %-10s %-5s%n", c.code, c.name, c.continent, c.region, c.population, c.capital_id);
+                } else {
+                    System.out.println("Missing element!");
+                }
+            }
+        } else {
+            System.out.println("Failed to print list, there was no argument provided.");
+        }
+    }
+
+
+    /**
+     * 1. All the countries in the world organised by largest population to smallest.
+     */
+    public ArrayList<Country> getAllCountriesByPopDesc() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT code, name, continent, region, population, capital "
+                            + "FROM country "
+                            + "ORDER BY population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next()) {
+                Country c = new Country();
+                c.code = rset.getString("country.Code");
+                c.name = rset.getString("country.Name");
+                c.continent = rset.getString("country.Continent");
+                c.region = rset.getString("country.Region");
+                c.population = rset.getInt("country.Population");
+                c.capital_id = rset.getInt("country.Capital");
+                countries.add(c);
+            }
+            return countries;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
         }
     }
 }
