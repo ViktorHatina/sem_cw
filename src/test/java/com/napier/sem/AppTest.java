@@ -8,19 +8,37 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AppTest
-{
+public class AppTest {
     static App app;
 
     @BeforeAll
-    static void init()
-    {
+    static void init() {
         app = new App();
     }
 
     @Test
-    void printReportNull()
-    {
+    void printReportNull() {
         app.printReport(null);
     }
+
+    @Test
+    void printAllCountriesTestNull() {
+        app.printAllCountries(null);
+    }
+
+    @Test
+    void printAllCountriesTestEmpty() {
+        app.printAllCountries(new ArrayList<>());
+    }
+
+    @Test
+    void printAllCountriesTestContainsNull() {
+    ArrayList<Country> countries = new ArrayList<>();
+        countries.add(null);
+        app.printAllCountries(countries);
+    }
+
+
 }
+
+

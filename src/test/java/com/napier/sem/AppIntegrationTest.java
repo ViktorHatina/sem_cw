@@ -31,4 +31,8 @@ public class AppIntegrationTest
         assertNotNull(app.getLanguageReports());
     }
 
+    @Test
+    void printAllCountriesByPopDesc() {
+        app.printAllCountries(app.getAllCountriesByPopDesc());
     }
+}

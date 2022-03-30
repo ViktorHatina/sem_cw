@@ -176,11 +176,11 @@ public class App
                 if (c != null) {
                     System.out.printf("%-4s %-44s %-13s %-25s %-10s %-5s%n", c.code, c.name, c.continent, c.region, c.population, c.capital_id);
                 } else {
-                    System.out.println("Missing element!");
+                    System.out.println("Missing element in data!");
                 }
             }
         } else {
-            System.out.println("Failed to print list, there was no argument provided.");
+            System.out.println("No list to print, there was no argument provided.");
         }
     }
 
