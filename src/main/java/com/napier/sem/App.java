@@ -18,7 +18,7 @@ public class App {
         //a.printReport(getLanguageReports());
 
         //Print countries by population largest to smallest
-        ArrayList<Country> countries = a.getAllCountriesContPopDesc("Europe");
+        ArrayList<Country> countries = a.getAllCountriesRegByPopDesc("Eastern Europe");
         a.printAllCountries(countries);
 
         // Disconnect from database
@@ -234,6 +234,40 @@ public class App {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details by given continent");
+            return null;
+        }
+    }
+    /**
+     * 3. All the countries in a region organised by largest population to smallest.
+     */
+    public ArrayList<Country> getAllCountriesRegByPopDesc(String region) {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT code, name, continent, region, population, capital "
+                            + "FROM country "
+                            + "WHERE region = '" + region + "' "
+                            + "ORDER BY population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next()) {
+                Country c = new Country();
+                c.code = rset.getString("country.Code");
+                c.name = rset.getString("country.Name");
+                c.continent = rset.getString("country.Continent");
+                c.region = rset.getString("country.Region");
+                c.population = rset.getInt("country.Population");
+                c.capital_id = rset.getInt("country.Capital");
+                countries.add(c);
+            }
+            return countries;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details by given region");
             return null;
         }
     }
