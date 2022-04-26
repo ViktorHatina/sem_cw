@@ -69,7 +69,7 @@ Finally, the organisation has asked if it is possible to provide the number of p
 
 ---
 
-> 32 requirements of 32 have been implemented, which is 100%.
+> n / 32 features have been implemented, which is n%.
 
 
 | ID  | Name                                                                                                                                                                        | Met | 
