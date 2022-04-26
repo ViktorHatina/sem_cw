@@ -19,7 +19,9 @@ public class App {
 
         //Print countries by population largest to smallest
         //ArrayList<Country> countries = a.getAllCountriesRegByPopDesc("Eastern Europe");
-        ArrayList<Country> countries = a.getTopNPopCountries(10);
+        //ArrayList<Country> countries = a.getTopNPopCountries(10);
+        //a.printAllCountries(countries);
+        ArrayList<Country> countries = a.getTopNPopCountriesByCont(10, "Europe");
         a.printAllCountries(countries);
 
         // Disconnect from database
@@ -303,7 +305,42 @@ public class App {
             return countries;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details by given region");
+            System.out.println("Failed to get top N contries in the world");
+            return null;
+        }
+    }
+    /**
+     * 5.The top N populated countries in a continent where N is provided by the user.
+     */
+    public ArrayList<Country> getTopNPopCountriesByCont(int n, String continent) {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT code, name, continent, region, population, capital "
+                            + "FROM country "
+                            + "WHERE continent = '" + continent + "' "
+                            + "ORDER BY population DESC "
+                            + "LIMIT " + n + " ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next()) {
+                Country c = new Country();
+                c.code = rset.getString("country.Code");
+                c.name = rset.getString("country.Name");
+                c.continent = rset.getString("country.Continent");
+                c.region = rset.getString("country.Region");
+                c.population = rset.getInt("country.Population");
+                c.capital_id = rset.getInt("country.Capital");
+                countries.add(c);
+            }
+            return countries;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N contries in given continent");
             return null;
         }
     }
