@@ -74,10 +74,10 @@ Finally, the organisation has asked if it is possible to provide the number of p
 
 | ID  | Name                                                                                                                                                                        | Met | 
 |:---:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----|
-|  1  | All the countries in the world organised by largest population to smallest.                                                                                                 | No  |
-|  2  | All the countries in a continent organised by largest population to smallest.                                                                                               | No  |     
-|  3  | All the countries in a region organised by largest population to smallest.                                                                                                  | No  |     
-|  4  | The top N populated countries in the world where N is provided by the user.                                                                                                 | No  |     
+|  1  | All the countries in the world organised by largest population to smallest.                                                                                                 | Yes |
+|  2  | All the countries in a continent organised by largest population to smallest.                                                                                               | Yes |     
+|  3  | All the countries in a region organised by largest population to smallest.                                                                                                  | Yes |     
+|  4  | The top N populated countries in the world where N is provided by the user.                                                                                                 | Yes |     
 |  5  | The top N populated countries in a continent where N is provided by the user.                                                                                               | No  |     
 |  6  | The top N populated countries in a region where N is provided by the user.                                                                                                  | No  |     
 |  7  | All the cities in the world organised by largest population to smallest.                                                                                                    | No  |     
