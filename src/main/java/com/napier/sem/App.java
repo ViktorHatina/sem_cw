@@ -16,9 +16,12 @@ public class App
             a.connect(args[0], Integer.parseInt(args[1]));
         }
 
+
+
+        /*
         ArrayList<Country> countries = a.getTopNPopCountriesByReg(10, "Western Europe");
         a.printAllCountries(countries);
-
+        */
 
         // Disconnect from database
         a.disconnect();
