@@ -18,12 +18,19 @@ public class App
 
         a.getWorldPopulation();
 
-        /*
+        /*6
         ArrayList<Country> countries = a.getTopNPopCountriesByReg(10, "Western Europe");
         a.printAllCountries(countries);
         */
+
+        /*7
         ArrayList<City> cities = a.getCityPopulationDesc();
         a.printAllCities(cities);
+        */
+
+        ArrayList<City> cities = a.getCityContinentPopulationDesc("Africa");
+        a.printAllCities(cities);
+
         // Disconnect from database
         a.disconnect();
     }
@@ -440,6 +447,40 @@ public class App
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get list of cities by population");
+            return null;
+        }
+    }
+
+    /**
+     * 8.All the cities in a continent organised by largest population to smallest.
+     */
+    public ArrayList<City> getCityContinentPopulationDesc(String continent) {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.name, country.name, city.district, city.population "
+                            + "FROM city "
+                            + "JOIN country ON city.countrycode=country.code "
+                            + "WHERE continent = '" + continent + "' "
+                            + "ORDER BY city.population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<City> cities = new ArrayList<City>();
+            while (rset.next()) {
+                City c = new City();
+                c.name = rset.getString("city.name");
+                c.country = rset.getString("country.name");
+                c.district = rset.getString("city.district");
+                c.population = rset.getInt("city.population");
+                cities.add(c);
+            }
+            return cities;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get list of cities in a continent by population");
             return null;
         }
     }
