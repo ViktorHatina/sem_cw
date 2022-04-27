@@ -22,7 +22,8 @@ public class App
         ArrayList<Country> countries = a.getTopNPopCountriesByReg(10, "Western Europe");
         a.printAllCountries(countries);
         */
-
+        ArrayList<City> cities = a.getCityPopulationDesc();
+        a.printAllCities(cities);
         // Disconnect from database
         a.disconnect();
     }
@@ -413,35 +414,32 @@ public class App
     /**
      * 7.All the cities in the world organised by largest population to smallest.
      */
-    public ArrayList<Country> getTopNPopCountriesByReg(int n, String region) {
+    public ArrayList<City> getCityPopulationDesc() {
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT code, name, continent, region, population, capital "
-                            + "FROM country "
-                            + "WHERE region = '" + region + "' "
-                            + "ORDER BY population DESC "
-                            + "LIMIT " + n + " ";
+                    "SELECT city.name, country.name, city.district, city.population "
+                            + "FROM city "
+                            + "JOIN country ON city.countrycode=country.code "
+                            + "ORDER BY city.population DESC ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract country information
-            ArrayList<Country> countries = new ArrayList<Country>();
+            ArrayList<City> cities = new ArrayList<City>();
             while (rset.next()) {
-                Country c = new Country();
-                c.code = rset.getString("country.Code");
-                c.name = rset.getString("country.Name");
-                c.continent = rset.getString("country.Continent");
-                c.region = rset.getString("country.Region");
-                c.population = rset.getInt("country.Population");
-                c.capital_id = rset.getInt("country.Capital");
-                countries.add(c);
+                City c = new City();
+                c.name = rset.getString("city.name");
+                c.country = rset.getString("country.name");
+                c.district = rset.getString("city.district");
+                c.population = rset.getInt("city.population");
+                cities.add(c);
             }
-            return countries;
+            return cities;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get top N contries in given region");
+            System.out.println("Failed to get list of cities by population");
             return null;
         }
     }
