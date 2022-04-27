@@ -8,13 +8,13 @@ ORDER BY population DESC
 2. All the countries in a continent organised by largest population to smallest.
 SELECT code, name, continent, region, population, capital
 FROM country
-WHERE continent = '?'
+GROUP BY continent
 ORDER BY population DESC
 
 3. All the countries in a region organised by largest population to smallest.
 SELECT code, name, continent, region, population, capital
 FROM country
-WHERE region = '?'
+GROUP BY region
 ORDER BY population DESC
 
 4.The top N populated countries in the world where N is provided by the user.
@@ -26,14 +26,14 @@ LIMIT N
 5. The top N populated countries in a continent where N is provided by the user.
 SELECT code, name, continent, region, population, capital
 FROM country
-WHERE continent = '?'
+GROUP BY continent
 ORDER BY population DESC
 LIMIT N
 
 6. The top N populated countries in a region where N is provided by the user.
 SELECT code, name, continent, region, population, capital
 FROM country
-WHERE region = '?'
+GROUP BY region
 ORDER BY population DESC
 LIMIT N
 
@@ -47,28 +47,28 @@ ORDER BY city.population DESC
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE country.continent = '?'
+GROUP BY continent
 ORDER BY city.population DESC
 
 9. All the cities in a region organised by largest population to smallest.
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE country.region = '?'
+GROUP BY region
 ORDER BY city.population DESC
 
 10. All the cities in a country organised by largest population to smallest.
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE country.name = '?'
+GROUP BY country.name
 ORDER BY city.population DESC
 
 11. All the cities in a district organised by largest population to smallest.
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE city.district = '?'
+GROUP BY city.district
 ORDER BY city.population DESC
 
 12. The top N populated cities in the world where N is provided by the user.
@@ -82,7 +82,7 @@ LIMIT N
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE country.continent = '?'
+GROUP BY country.continent
 ORDER BY city.population DESC
 LIMIT N
 
@@ -90,7 +90,7 @@ LIMIT N
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE country.region = '?'
+GROUP BY country.region
 ORDER BY city.population DESC
 LIMIT N
 
@@ -98,7 +98,7 @@ LIMIT N
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE country.name = '?'
+GROUP BY country.name
 ORDER BY city.population DESC
 LIMIT N
 
@@ -106,6 +106,85 @@ LIMIT N
 SELECT city.name, country.name, city.district, city.population
 FROM city
 JOIN country ON city.countrycode=country.code
-WHERE city.district = '?'
+GROUP BY city.district
 ORDER BY city.population DESC
 LIMIT N
+
+17. All the capital cities in the world organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM country
+JOIN city ON country.capital=city.ID
+ORDER BY city.population DESC
+
+18. All the capital cities in a continent organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM country
+JOIN city ON country.capital=city.ID
+GROUP BY country.continent
+ORDER BY city.population DESC
+
+19. All the capital cities in a region organised by largest population to smallest.
+SELECT city.name, country.name, city.district, city.population
+FROM country
+JOIN city ON country.capital=city.ID
+GROUP BY country.continent
+ORDER BY city.population DESC
+
+20. The top N populated capital cities in the world where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM country
+JOIN city ON country.capital=city.ID
+ORDER BY city.population DESC
+LIMIT N
+
+21. The top N populated capital cities in a continent where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM country
+JOIN city ON country.capital=city.ID
+GROUP BY country.continent
+ORDER BY city.population DESC
+LIMIT N
+
+22. The top N populated capital cities in a region where N is provided by the user.
+SELECT city.name, country.name, city.district, city.population
+FROM country
+JOIN city ON country.capital=city.ID
+GROUP BY country.region
+ORDER BY city.population DESC
+LIMIT N
+
+
+25. The population of people, people living in cities, and people not living in cities in each country.
+SELECT country.population, SUM(city.population), (country.population-SUM(city.population))
+FROM country
+JOIN city ON country.code=city.countrycode
+GROUP BY country.name
+
+26. The population of the world.
+SELECT SUM(population) AS WorldPopulation
+FROM country
+
+27. The population of a continent.
+SELECT continent, SUM(population) AS ContinentPopulation
+FROM country
+GROUP BY continent
+
+28. The population of a region.
+SELECT region, SUM(population) AS RegionPopulation
+FROM country
+GROUP BY region
+
+29. The population of a country.
+SELECT name, population AS CountryPopulation
+FROM country
+
+30. The population of a district.
+SELECT name, SUM(population) AS DistrictPopulation
+FROM city
+GROUP BY district
+
+31. The population of a city.
+SELECT name, population AS CityPopulation
+FROM city
+
+
