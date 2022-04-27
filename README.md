@@ -20,6 +20,7 @@ Group 4! Let's Goooo
 | (As Above)                                                                                                                                                                                                                       | Implement integration tests                              | 6        | 1             |
 
 
+These tests are passing.
 
 
 The organisation has asked for the following reports to be generated:
