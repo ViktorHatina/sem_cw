@@ -16,7 +16,7 @@ public class App
             a.connect(args[0], Integer.parseInt(args[1]));
         }
 
-
+        a.getWorldPopulation();
 
         /*
         ArrayList<Country> countries = a.getTopNPopCountriesByReg(10, "Western Europe");
@@ -171,6 +171,26 @@ public class App
             for (Country c : countries) {
                 if (c != null) {
                     System.out.printf("%-4s %-44s %-13s %-25s %-10s %-5s%n", c.code, c.name, c.continent, c.region, c.population, c.capital_id);
+                } else {
+                    System.out.println("Missing element in data!");
+                }
+            }
+        } else {
+            System.out.println("No list to print, there was no argument provided.");
+        }
+    }
+
+    /**
+     * Print cities from functions
+     *
+     * @param cities: a list of cities extracted from the database
+     */
+    public void printAllCities(ArrayList<City> cities) {
+        if (cities != null && !cities.isEmpty()) {
+            System.out.printf("%-44s %-44s %-25s %-10s%n", "Name", "Country", "District", "Population");
+            for (City c : cities) {
+                if (c != null) {
+                    System.out.printf("%-44s %-44s %-25s %-10s%n", c.name, c.country, c.district,c.population);
                 } else {
                     System.out.println("Missing element in data!");
                 }
@@ -355,7 +375,7 @@ public class App
     }
 
     /**
-     * The top N populated countries in a region where N is provided by the user.
+     * 6.The top N populated countries in a region where N is provided by the user.
      */
     public ArrayList<Country> getTopNPopCountriesByReg(int n, String region) {
         try {
@@ -390,6 +410,41 @@ public class App
         }
     }
 
+    /**
+     * 7.All the cities in the world organised by largest population to smallest.
+     */
+    public ArrayList<Country> getTopNPopCountriesByReg(int n, String region) {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT code, name, continent, region, population, capital "
+                            + "FROM country "
+                            + "WHERE region = '" + region + "' "
+                            + "ORDER BY population DESC "
+                            + "LIMIT " + n + " ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next()) {
+                Country c = new Country();
+                c.code = rset.getString("country.Code");
+                c.name = rset.getString("country.Name");
+                c.continent = rset.getString("country.Continent");
+                c.region = rset.getString("country.Region");
+                c.population = rset.getInt("country.Population");
+                c.capital_id = rset.getInt("country.Capital");
+                countries.add(c);
+            }
+            return countries;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N contries in given region");
+            return null;
+        }
+    }
 }
 
 /**
