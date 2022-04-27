@@ -17,24 +17,51 @@ public class AppTest {
     }
 
     @Test
-    void printReportNull() {
+    void printReportsNull() {
         app.printReport(null);
     }
 
     @Test
-    void printAllCountriesTestNull() {
+    void printReportEmpty() {
+        app.printReport(new ArrayList<>());
+    }
+
+    @Test
+    void printReportNull() {
+        ArrayList<String> s = new ArrayList<>();
+        s.add(null);
+        app.printReport(s);
+    }
+
+    @Test
+    void printAllCountriesNull() {
         app.printAllCountries(null);
     }
 
     @Test
-    void printAllCountriesTestEmpty() {
+    void printAllCountriesEmpty() {
         app.printAllCountries(new ArrayList<>());
     }
 
     @Test
-    void printAllCountriesTestContainsNull() {
+    void printAllCountriesContainsNull() {
         ArrayList<Country> countries = new ArrayList<>();
         countries.add(null);
         app.printAllCountries(countries);
     }
+
+    @Test
+    void getTopNPopCountriesNegative() {app.getTopNPopCountries(-1);}
+
+    @Test
+    void getTopNPopCountriesByContNegative() {app.getTopNPopCountriesByCont(-1, "Europe");}
+
+    @Test
+    void getTopNPopCountriesByContInvalidString() {app.getTopNPopCountriesByCont(10, "s");}
+
+    @Test
+    void getTopNPopCountriesByContNullString() {app.getTopNPopCountriesByCont(10, null);}
+
+    @Test
+    void getTopNPopCountriesByRegNegative() {app.getTopNPopCountriesByReg(-1, "")}
 }

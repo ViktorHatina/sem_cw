@@ -16,8 +16,6 @@ public class App
             a.connect(args[0], Integer.parseInt(args[1]));
         }
 
-
-
         /*
         ArrayList<Country> countries = a.getTopNPopCountriesByReg(10, "Western Europe");
         a.printAllCountries(countries);
@@ -288,35 +286,38 @@ public class App
      * 4.The top N populated countries in the world where N is provided by the user.
      */
     public ArrayList<Country> getTopNPopCountries(int n) {
-        try {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT code, name, continent, region, population, capital "
-                            + "FROM country "
-                            + "ORDER BY population DESC "
-                            + "LIMIT " + n + " ";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract country information
-            ArrayList<Country> countries = new ArrayList<Country>();
-            while (rset.next()) {
-                Country c = new Country();
-                c.code = rset.getString("country.Code");
-                c.name = rset.getString("country.Name");
-                c.continent = rset.getString("country.Continent");
-                c.region = rset.getString("country.Region");
-                c.population = rset.getInt("country.Population");
-                c.capital_id = rset.getInt("country.Capital");
-                countries.add(c);
+        if (n > 0) {
+            try {
+                // Create an SQL statement
+                Statement stmt = con.createStatement();
+                // Create string for SQL statement
+                String strSelect =
+                        "SELECT code, name, continent, region, population, capital "
+                                + "FROM country "
+                                + "ORDER BY population DESC "
+                                + "LIMIT " + n + " ";
+                // Execute SQL statement
+                ResultSet rset = stmt.executeQuery(strSelect);
+                // Extract country information
+                ArrayList<Country> countries = new ArrayList<Country>();
+                while (rset.next()) {
+                    Country c = new Country();
+                    c.code = rset.getString("country.Code");
+                    c.name = rset.getString("country.Name");
+                    c.continent = rset.getString("country.Continent");
+                    c.region = rset.getString("country.Region");
+                    c.population = rset.getInt("country.Population");
+                    c.capital_id = rset.getInt("country.Capital");
+                    countries.add(c);
+                }
+                return countries;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Failed to get top N contries in the world");
+                return null;
             }
-            return countries;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get top N contries in the world");
-            return null;
         }
+        return null;
     }
     /**
      * 5.The top N populated countries in a continent where N is provided by the user.
