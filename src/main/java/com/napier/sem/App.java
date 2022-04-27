@@ -4,29 +4,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class App {
+public class App
+{
     public static void main(String[] args) {
         // Create new Application and connect to database
         App a = new App();
 
-        if (args.length < 1) {
-            a.connect("localhost:33060", 30000);
-        } else {
+        if(args.length < 1){
+            a.connect("localhost:3307", 30000);
+        }else{
             a.connect(args[0], Integer.parseInt(args[1]));
         }
-        // Print Lang Reports
-        //a.printReport(getLanguageReports());
 
-        //Print countries by population largest to smallest
-        //ArrayList<Country> countries = a.getAllCountriesRegByPopDesc("Eastern Europe");
-        //ArrayList<Country> countries = a.getTopNPopCountries(10);
-        //a.printAllCountries(countries);
-        //Top N countries by continent
-        //ArrayList<Country> countries = a.getTopNPopCountriesByCont(10, "Europe");
-        //.printAllCountries(countries);
-        //Top n countries by region
+
+
+        /*
         ArrayList<Country> countries = a.getTopNPopCountriesByReg(10, "Western Europe");
         a.printAllCountries(countries);
+        */
 
         // Disconnect from database
         a.disconnect();
@@ -35,7 +30,7 @@ public class App {
     /**
      * Connection to MySQL database.
      */
-    private static Connection con = null;
+    private Connection con = null;
 
     /**
      * Connect to the MySQL database.
@@ -62,7 +57,7 @@ public class App {
                 System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println("Failed to connect to database attempt " +                                  Integer.toString(i));
                 System.out.println(sqle.getMessage());
             } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
@@ -73,22 +68,28 @@ public class App {
     /**
      * Disconnect from the MySQL database.
      */
-    public static void disconnect() {
-        if (con != null) {
-            try {
+    public void disconnect()
+    {
+        if (con != null)
+        {
+            try
+            {
                 // Close connection
                 con.close();
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 System.out.println("Error closing connection to database");
             }
         }
     }
-
     /**
      * Get the World's Population
      */
-    public static long getWorldPopulation() {
-        try {
+    public long getWorldPopulation()
+    {
+        try
+        {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -97,11 +98,15 @@ public class App {
                             + "FROM country";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            if (rset.next()) {
+            if (rset.next())
+            {
                 return rset.getLong(1);
-            } else
+            }
+            else
                 return 0;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             System.out.println(e.getMessage());
             System.out.println("Failed to get world population");
             return 0;
@@ -124,7 +129,7 @@ public class App {
     /**
      * Get Reports on the percentages of worlds population speeking the worlds most used languages
      */
-    public static ArrayList<String> getLanguageReports() {
+    public ArrayList<String> getLanguageReports() {
         ArrayList<String> output = new ArrayList<String>();
         try {
             long wpop = getWorldPopulation();
@@ -385,5 +390,9 @@ public class App {
         }
     }
 
-
 }
+
+/**
+ * :^)
+ */
+

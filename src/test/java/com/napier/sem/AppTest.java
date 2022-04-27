@@ -33,12 +33,8 @@ public class AppTest {
 
     @Test
     void printAllCountriesTestContainsNull() {
-    ArrayList<Country> countries = new ArrayList<>();
+        ArrayList<Country> countries = new ArrayList<>();
         countries.add(null);
         app.printAllCountries(countries);
     }
-
-
 }
-
-
