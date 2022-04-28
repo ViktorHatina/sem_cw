@@ -35,6 +35,7 @@ public class App {
         a.printReport(CitiesinCountryByPopDesc());
 
         /*
+
         a.printReport(CitiesinDistrictByPopDesc());
 
         a.printReport(NCitiesinWorldByPopDesc(n));
